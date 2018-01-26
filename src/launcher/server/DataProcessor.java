@@ -60,9 +60,9 @@ public class DataProcessor {
     private static final File MasterServerList = new File("/var/www/igi2_master_server/igi2/masterserver/igi2_masterserver/servers/igi2-masterserver/servers/launcher_9-6/igi2_servers_igi2.LAUNCHER");
 
     // MySQL
-    private static final String ENDPOINT = "jdbc:mysql://igi2.cmu9fovipnvo.eu-central-1.rds.amazonaws.com/igi2?useSSL=false";
-    private static final String USER = "hyperxpro";
-    private static final String PASS = "Patrick9110";
+    private static final String ENDPOINT = "";
+    private static final String USER = "";
+    private static final String PASS = "";
     private Connection connection;
     private Statement statement;
     private ResultSet resultset;
