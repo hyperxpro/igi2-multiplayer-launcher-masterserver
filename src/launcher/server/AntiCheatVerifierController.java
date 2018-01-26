@@ -55,7 +55,6 @@ public class AntiCheatVerifierController {
         for (AntiCheatVerifier antiCheatVerifier : antiCheat) {
             if (antiCheatVerifier.getPlayerName().equals(PlayerName) && antiCheatVerifier.getJoinerID().equals(JoinerID) && antiCheatVerifier.getServerIPPort().equals(ServerIP + ":" + ServerPORT)) {
                 antiCheatVerifier.setVerified(true);
-                System.out.println("Anti cheat verified for " + PlayerName);
                 break;
             }
         }
