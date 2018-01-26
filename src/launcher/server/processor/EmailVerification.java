@@ -94,14 +94,14 @@ public class EmailVerification extends Thread {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "email-smtp.eu-west-1.amazonaws.com");
+        props.put("mail.smtp.host", "");
         props.put("mail.smtp.port", "587");
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("AKIAIXONK52MDUQPJB3A", "AnmNB/H4hN0v956jQFV8rznZywxWd3E1InoL9RWzQMog");
+                return new PasswordAuthentication("", "");
             }
         });
 
@@ -144,14 +144,14 @@ public class EmailVerification extends Thread {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "email-smtp.eu-west-1.amazonaws.com");
+        props.put("mail.smtp.host", "");
         props.put("mail.smtp.port", "587");
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("AKIAIXONK52MDUQPJB3A", "AnmNB/H4hN0v956jQFV8rznZywxWd3E1InoL9RWzQMog");
+                return new PasswordAuthentication("", "");
             }
         });
 
