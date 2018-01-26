@@ -506,40 +506,6 @@ public class DataProcessor {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             { // Get Player IP
-                if (Query.equals("GetPlayerIP")) {
-
-                    String PlayerName = Data.getProperty("MP_Name");
-                    String ServerIP;
-                    String ServerPORT = Data.getProperty("PORT");
-
-                    if (Data.getProperty("ServerIP") == null) {
-                        ServerIP = getSocket().getInetAddress().getHostAddress();
-                    } else {
-                        ServerIP = Data.getProperty("ServerIP");
-                    }
-
-                    PlayerIPRecord playerIPRecord = getPlayerIPByServerNameIPandPort(ServerIP, ServerPORT, PlayerName);
-
-                    if (playerIPRecord == null) {
-                        return "Response=Not_Found";
-                    } else {
-
-                        String IP = playerIPRecord.getPlayerIP();
-
-                        QueueJoin player = getPlayerInformationByServerIP_PORT_MP_NAME(ServerIP, ServerPORT, PlayerName);
-
-                        if (player != null) {
-                            removePlayerByJoinerID(player.getJoinerID(), ServerIP, ServerPORT, 1);
-                        }
-
-                        removePlayerFromIPRecord(playerIPRecord.getServerIP(), playerIPRecord.getServerPort(), playerIPRecord.getPlayerIP(), playerIPRecord.getPlayerName());
-
-                        return "Response=Found" + "\n" + "IP=" + IP;
-                    }
-                }
-            }
-
-            { // Get Player IP
                 if (Query.equals("GPLRIP")) {
 
                     String ServerIP;
