@@ -1,22 +1,21 @@
 /*
-IGI-2 Multiplayer Launcher Master Server
-
-Copyright (c) 2018, Aayush Atharva
-
-Permission is hereby granted, free of charge to any person obtaining a copy of this software and associated documentation files 
-(the "Software"), to deal in the Software with restriction. A person can use, copy the Software without restriction. But if a person modify
-the software, the person must push the code to the Software GitHub repository. If a person wants to publish or distribute the software,
-the person must put this "Created By: Aayush Atharva" on About Section of the Software. And If a person want's to sell the software,
-the person get permission from the owner of this Software. 
-
-
-IGI-2 Multiplayer Launcher Master Server
-Owner: Aayush Atharva
-Email: aayush@igi2.co.in
-*/
-
-
-
+ * IGI-2 Multiplayer Launcher
+ *
+ * Copyright (c) 2018, Aayush Atharva
+ *
+ * Permission is hereby granted, free of charge to any person obtaining a copy of this software and associated documentation files 
+ * (the "Software"), to deal in the Software with restriction. A person can use, copy the Software without restriction. But if a person 
+ * modify the software, the person must push the code to the Software GitHub repository. If a person wants to publish or distribute the 
+ * software, the person must put this "Created By: Aayush Atharva" on About Section of the Software And this License must be present with 
+ * every file of the Software. And If a person wants to sell the software, the person get permission from the owner of this Software.
+ *
+ *
+ *
+ *
+ * IGI-2 Multiplayer Launcher
+ * Owner: Aayush Atharva
+ * Email: aayush@igi2.co.in
+ */
 package launcher.server;
 
 import launcher.server.processor.PlayerIPRecord;
@@ -79,9 +78,9 @@ public class DataProcessor {
     private static final File MasterServerList = new File("/var/www/igi2_master_server/igi2/masterserver/igi2_masterserver/servers/igi2-masterserver/servers/launcher_9-6/igi2_servers_igi2.LAUNCHER");
 
     // MySQL
-    private static final String ENDPOINT = "";
-    private static final String USER = "";
-    private static final String PASS = "";
+    private static final String ENDPOINT = "jdbc:mysql://igi2.cmu9fovipnvo.eu-central-1.rds.amazonaws.com/igi2?useSSL=false";
+    private static final String USER = "hyperxpro";
+    private static final String PASS = "Patrick9110";
     private Connection connection;
     private Statement statement;
     private ResultSet resultset;
@@ -524,6 +523,40 @@ public class DataProcessor {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            { // Get Player IP
+                if (Query.equals("GetPlayerIP")) {
+
+                    String PlayerName = Data.getProperty("MP_Name");
+                    String ServerIP;
+                    String ServerPORT = Data.getProperty("PORT");
+
+                    if (Data.getProperty("ServerIP") == null) {
+                        ServerIP = getSocket().getInetAddress().getHostAddress();
+                    } else {
+                        ServerIP = Data.getProperty("ServerIP");
+                    }
+
+                    PlayerIPRecord playerIPRecord = getPlayerIPByServerNameIPandPort(ServerIP, ServerPORT, PlayerName);
+
+                    if (playerIPRecord == null) {
+                        return "Response=Not_Found";
+                    } else {
+
+                        String IP = playerIPRecord.getPlayerIP();
+
+                        QueueJoin player = getPlayerInformationByServerIP_PORT_MP_NAME(ServerIP, ServerPORT, PlayerName);
+
+                        if (player != null) {
+                            removePlayerByJoinerID(player.getJoinerID(), ServerIP, ServerPORT, 1);
+                        }
+
+                        removePlayerFromIPRecord(playerIPRecord.getServerIP(), playerIPRecord.getServerPort(), playerIPRecord.getPlayerIP(), playerIPRecord.getPlayerName());
+
+                        return "Response=Found" + "\n" + "IP=" + IP;
+                    }
+                }
+            }
+
             { // Get Player IP
                 if (Query.equals("GPLRIP")) {
 
