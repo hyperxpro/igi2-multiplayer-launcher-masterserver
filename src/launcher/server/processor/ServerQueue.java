@@ -1,5 +1,5 @@
 /*
- * IGI-2 Multiplayer Launcher
+ * IGI-2 Multiplayer Launcher Master Server
  *
  * Copyright (c) 2018, Aayush Atharva
  *
@@ -12,7 +12,7 @@
  *
  *
  *
- * IGI-2 Multiplayer Launcher
+ * IGI-2 Multiplayer Launcher Master Server
  * Owner: Aayush Atharva
  * Email: aayush@igi2.co.in
  */
