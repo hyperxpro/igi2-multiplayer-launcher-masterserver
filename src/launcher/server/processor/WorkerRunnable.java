@@ -41,7 +41,6 @@ public class WorkerRunnable implements Runnable {
 
     @Override
     public void run() {
-//        System.out.println("Client Address: " + clientSocket.getInetAddress().getHostAddress() + ":" + clientSocket.getPort());
 
         InputStream input = null;
         InputStreamReader isr = null;
@@ -58,60 +57,36 @@ public class WorkerRunnable implements Runnable {
             try {
                 Data = new Decryption(AESSecretKey, CBCA, CBCB, KeyAES, Key, IV, br.readLine()).Decrypt(); // Decrypt Data And Load To String
             } catch (Exception ex) {
-
-                if (input != null) {
-                    input.close();
-                }
-
-                if (isr != null) {
-                    isr.close();
-                }
-
-                if (br != null) {
-                    br.close();
-                }
-
-//                new BanFalseIP(clientSocket.getInetAddress().getHostAddress(), "Block IP For Wrong Packet, IP: ").start(); // Block IP
+               // Decryption Error
             }
 
             String Response = null;
+            
+            // If Data Is Successfully Decrypted Then Continue Process Request
             if (Data != null) {
+                
                 try {
                     Response = new Encryption(AESSecretKey, CBCA, CBCB, KeyAES, Key, IV, new DataProcessor(Data, clientSocket).Process()).Encrypt();
                 } catch (Exception ex) {
-                    Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, null, ex);
+                   // Encrytion Error
+                   return;
                 }
 
                 output = clientSocket.getOutputStream();
                 output.write(Response.getBytes());
-                output.close();
-            } else {
-                if (output != null) {
-                    try {
-                        output.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                if (input != null) {
-                    try {
-                        input.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+       
             }
 
         } catch (SocketException e) {
-            //  System.err.println("Client Disconnected, " + clientSocket.getInetAddress().getHostAddress() + ":" + clientSocket.getPort());
+              System.err.println("Client Disconnected, " + clientSocket.getInetAddress().getHostAddress() + ":" + clientSocket.getPort());
         } catch (IOException e) {
-            Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, "IO Error: " + "\n", e);
         } finally {
             if (input != null) {
                 try {
                     input.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, "IO Error: " + "\n", ex);
                 }
             }
 
@@ -119,7 +94,7 @@ public class WorkerRunnable implements Runnable {
                 try {
                     isr.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, "IO Error: " + "\n", ex);
                 }
             }
 
@@ -127,7 +102,7 @@ public class WorkerRunnable implements Runnable {
                 try {
                     br.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, "IO Error: " + "\n", ex);
                 }
             }
 
@@ -135,7 +110,7 @@ public class WorkerRunnable implements Runnable {
                 try {
                     output.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(WorkerRunnable.class.getName()).log(Level.SEVERE, "IO Error: " + "\n", ex);
                 }
             }
         }
