@@ -103,8 +103,7 @@ public class DataProcessor {
         try {
 
             Properties Data = new Properties();
-            InputStream input = new ByteArrayInputStream(getPacketData().getBytes(StandardCharsets.UTF_8.name()));
-            Data.load(input);
+            Data.load(new ByteArrayInputStream(getPacketData().getBytes(StandardCharsets.UTF_8.name())));
 
             String Query = Data.getProperty("Query");
 
