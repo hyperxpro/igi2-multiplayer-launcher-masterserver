@@ -86,7 +86,7 @@ public class AntiCheatVerifierController {
      * @param ServerPort Server Port
      * @param PlayerName Player Name
      * @param JoinerID Player JoinerID
-     * @return Returns Result
+     * @return true = player found and anti cheat verified | false = player not found or anti cheat not verified
      */
     public static boolean isPlayerVerified(String ServerIP, String ServerPort, String PlayerName, String JoinerID) {
         for (AntiCheatVerifier antiCheatVerifier : antiCheat) {
