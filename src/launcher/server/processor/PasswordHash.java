@@ -18,8 +18,6 @@
  */
 package launcher.server.processor;
 
-import aayush.atharva.TurboCryptography.Decryption;
-import aayush.atharva.TurboCryptography.Encryption;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import javax.crypto.spec.PBEKeySpec;
@@ -29,16 +27,16 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  *
- * @author Hyper
+ * @author Aayush Atharva
  */
 public class PasswordHash {
 
     public String HashPassword(String Password) throws Exception {
-        return new PasswordHash().GetEncryptedHash(new PasswordHash().generateHash(new PasswordHash().EncryptPass(Password)));
+        return generateHash(Password);
     }
 
     public boolean isPasswordValid(String Password, String Hash) throws Exception {
-        return new PasswordHash().validatePassword(new PasswordHash().EncryptPass(Password), new PasswordHash().DecryptHash(Hash));
+        return validatePassword(Password, Hash);
     }
 
     private boolean validatePassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -96,45 +94,5 @@ public class PasswordHash {
         }
         return bytes;
     }
-
-    private String EncryptPass(String Password) throws Exception {
-        String Key = "%tH&koY3S8j9dxJ9";
-        String KeyAES = "ECC216E42C23D21BF151A15C4A2EC83B";
-        String IV = "6Sl%$d9uz6Z!&k0a";
-        String CBCA = "^%bT6#B^O#Qq@4B5";
-        String CBCB = "$Ao#45ZG%M6F7@z5";
-        String AESSecretKey = "9MYG4lZ@XUZy4i9sXlb^0&%jq!bgQeYqTYUP45xKc#5&Oq87@NZfzY%931cc*R6pL6p0ekOitbwlJfRPeI0Te%0p2pVgVYN9J4TNtq1n3NlcxzZppCC9yfUK!nkBNH9TWQ%Xr0JDFNzHbcvnF9ET#ostlVufBDnnY0aLW2s8Y%6glp@xu3KvS2DUQFlp5JATz$h*YFC8";
-
-        return new Encryption(AESSecretKey, CBCA, CBCB, KeyAES, Key, IV, Password).Encrypt();
-    }
-
-    private String GetEncryptedHash(String Hash) throws Exception {
-        String Key = "^c2jZE*2a4@7wCiB";
-        String KeyAES = "EEC32068078FCAFC42D5B33F9E2EB1F8";
-        String IV = "1eAhP&#7rHQtNfn5";
-        String CBCA = "$zX5qtSc1zcw2XYv";
-        String CBCB = "k6!#5Jk1O*9K@0%t";
-        String AESSecretKey = "48UdqoH@F7LgDHTAz@2&24dT$yB#xObaexIDZBi#wztLU!doW$E#OFUrKF%Xa@3raExsY4pfqkMI0jgbEz*@5F6s5DSU%o8C#JtSW9D0%4p*XNOI6ULjhg8q5y1M3os00tT3$ffffScrscsOBeAZ8k9webclS^s^LdLPU!Eet%BAQJQxbq*qSPwD!z@mer6VmdWUHHjI";
-        return new Encryption(AESSecretKey, CBCA, CBCB, KeyAES, Key, IV, Hash).Encrypt();
-    }
-
-    private String DecryptPass(String Password) throws Exception {
-        String Key = "%tH&koY3S8j9dxJ9";
-        String KeyAES = "ECC216E42C23D21BF151A15C4A2EC83B";
-        String IV = "6Sl%$d9uz6Z!&k0a";
-        String CBCA = "^%bT6#B^O#Qq@4B5";
-        String CBCB = "$Ao#45ZG%M6F7@z5";
-        String AESSecretKey = "9MYG4lZ@XUZy4i9sXlb^0&%jq!bgQeYqTYUP45xKc#5&Oq87@NZfzY%931cc*R6pL6p0ekOitbwlJfRPeI0Te%0p2pVgVYN9J4TNtq1n3NlcxzZppCC9yfUK!nkBNH9TWQ%Xr0JDFNzHbcvnF9ET#ostlVufBDnnY0aLW2s8Y%6glp@xu3KvS2DUQFlp5JATz$h*YFC8";
-        return new Decryption(AESSecretKey, CBCA, CBCB, KeyAES, Key, IV, Password).Decrypt();
-    }
-
-    private String DecryptHash(String Hash) throws Exception {
-        String Key = "^c2jZE*2a4@7wCiB";
-        String KeyAES = "EEC32068078FCAFC42D5B33F9E2EB1F8";
-        String IV = "1eAhP&#7rHQtNfn5";
-        String CBCA = "$zX5qtSc1zcw2XYv";
-        String CBCB = "k6!#5Jk1O*9K@0%t";
-        String AESSecretKey = "48UdqoH@F7LgDHTAz@2&24dT$yB#xObaexIDZBi#wztLU!doW$E#OFUrKF%Xa@3raExsY4pfqkMI0jgbEz*@5F6s5DSU%o8C#JtSW9D0%4p*XNOI6ULjhg8q5y1M3os00tT3$ffffScrscsOBeAZ8k9webclS^s^LdLPU!Eet%BAQJQxbq*qSPwD!z@mer6VmdWUHHjI";
-        return new Decryption(AESSecretKey, CBCA, CBCB, KeyAES, Key, IV, Hash).Decrypt();
-    }
+    
 }
