@@ -1,5 +1,5 @@
 # IGI-2 Multiplayer Launcher Master Server
-
+UPDATE: New Licence Applicable from: 29 December 2019
 ```
 IGI-2 Multiplayer Launcher MasterServer
 ________________________________________
